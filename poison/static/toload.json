@@ -1,0 +1,29 @@
+{
+    "router": [
+      {
+        "path": "",
+        "component": "Layout",
+        "redirect": "dashboard",
+        "children": [
+          {
+            "path": "dashboard",
+            "component": "dashboard/index",
+            "meta": {
+              "title": "控制台",
+              "icon": "el-icon-share"
+            }
+          }
+        ]
+      },
+      {
+        "path": "/login",
+        "component": "login/index",
+        "hidden ": true
+      },
+      {
+        "path": "*",
+        "redirect": "/404",
+        "hidden": true
+      }
+    ]
+}

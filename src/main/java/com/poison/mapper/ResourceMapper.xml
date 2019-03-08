@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.poison.mapper.ResourceMapper">
+    <resultMap id="BaseResultMap" type="com.poison.domain.Resource">
+        <id column="rs_id" property="rsId" jdbcType="VARCHAR"/>
+        <result column="rs_pid" property="rsPid" jdbcType="VARCHAR"/>
+        <result column="component" property="component" jdbcType="VARCHAR"/>
+        <result column="redirect" property="redirect" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="hidden" property="hidden" jdbcType="TINYINT"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    rs_id, rs_pid, component, redirect, NAME, hidden, title, icon, path
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.poison.domain.ResourceExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from resource_p
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from resource_p
+        where rs_id = #{rsId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from resource_p
+    where rs_id = #{rsId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.poison.domain.ResourceExample">
+        delete from resource_p
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.poison.domain.Resource">
+    insert into resource_p (rs_id, rs_pid, component, 
+      redirect, NAME, hidden, 
+      title, icon, path)
+    values (#{rsId,jdbcType=VARCHAR}, #{rsPid,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, 
+      #{redirect,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{hidden,jdbcType=TINYINT}, 
+      #{title,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.poison.domain.Resource">
+        insert into resource_p
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rsId != null">
+                rs_id,
+            </if>
+            <if test="rsPid != null">
+                rs_pid,
+            </if>
+            <if test="component != null">
+                component,
+            </if>
+            <if test="redirect != null">
+                redirect,
+            </if>
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="hidden != null">
+                hidden,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rsId != null">
+                #{rsId,jdbcType=VARCHAR},
+            </if>
+            <if test="rsPid != null">
+                #{rsPid,jdbcType=VARCHAR},
+            </if>
+            <if test="component != null">
+                #{component,jdbcType=VARCHAR},
+            </if>
+            <if test="redirect != null">
+                #{redirect,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="hidden != null">
+                #{hidden,jdbcType=TINYINT},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.poison.domain.ResourceExample" resultType="java.lang.Integer">
+        select count(*) from resource_p
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update resource_p
+        <set>
+            <if test="record.rsId != null">
+                rs_id = #{record.rsId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.rsPid != null">
+                rs_pid = #{record.rsPid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.component != null">
+                component = #{record.component,jdbcType=VARCHAR},
+            </if>
+            <if test="record.redirect != null">
+                redirect = #{record.redirect,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null">
+                NAME = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.hidden != null">
+                hidden = #{record.hidden,jdbcType=TINYINT},
+            </if>
+            <if test="record.title != null">
+                title = #{record.title,jdbcType=VARCHAR},
+            </if>
+            <if test="record.icon != null">
+                icon = #{record.icon,jdbcType=VARCHAR},
+            </if>
+            <if test="record.path != null">
+                path = #{record.path,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update resource_p
+        set rs_id = #{record.rsId,jdbcType=VARCHAR},
+        rs_pid = #{record.rsPid,jdbcType=VARCHAR},
+        component = #{record.component,jdbcType=VARCHAR},
+        redirect = #{record.redirect,jdbcType=VARCHAR},
+        NAME = #{record.name,jdbcType=VARCHAR},
+        hidden = #{record.hidden,jdbcType=TINYINT},
+        title = #{record.title,jdbcType=VARCHAR},
+        icon = #{record.icon,jdbcType=VARCHAR},
+        path = #{record.path,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.poison.domain.Resource">
+        update resource_p
+        <set>
+            <if test="rsPid != null">
+                rs_pid = #{rsPid,jdbcType=VARCHAR},
+            </if>
+            <if test="component != null">
+                component = #{component,jdbcType=VARCHAR},
+            </if>
+            <if test="redirect != null">
+                redirect = #{redirect,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="hidden != null">
+                hidden = #{hidden,jdbcType=TINYINT},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where rs_id = #{rsId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.poison.domain.Resource">
+    update resource_p
+    set rs_pid = #{rsPid,jdbcType=VARCHAR},
+      component = #{component,jdbcType=VARCHAR},
+      redirect = #{redirect,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      hidden = #{hidden,jdbcType=TINYINT},
+      title = #{title,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR}
+    where rs_id = #{rsId,jdbcType=VARCHAR}
+  </update>
+
+
+    <resultMap id="resourceResult" type="com.poison.domain.Resource" extends="BaseResultMap">
+        <association property="meta" javaType="com.poison.domain.Meta">
+            <result column="icon" property="icon"></result>
+            <result column="title" property="title"></result>
+        </association>
+        <collection property="children" ofType="com.poison.domain.Resource" column="rs_id" select="findChildren">
+        </collection>
+    </resultMap>
+    <select id="findChildren" resultMap="resourceResult">
+ SELECT *from resource_p   WHERE rs_pid = #{rsId} ;
+    </select>
+    <select id="findResours" resultMap="resourceResult" parameterType="java.lang.String">
+
+
+         SELECT * FROM resource_p WHERE rs_id in(select rs_id from role_module_p where role_id in(
+
+        select role_id from role_user_p where USER_ID=#{id}
+
+        )) ORDER  by zindex
+   </select>
+
+    <select id="findALL" resultMap="resourceResult">
+        SELECT * FROM resource_p WHERE rs_pid='0' ORDER  by zindex
+    </select>
+</mapper>
